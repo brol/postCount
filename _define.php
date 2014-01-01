@@ -26,7 +26,6 @@ $this->registerModule(
 	/* Description*/	"Post read counter / Compteur de lecture de billet",
 	/* Author */		"Olivier Le Bris, Pierre Van Glabeke",
 	/* Version */		"1.7",
-	/* Priority */		null,
 	/* Properties */
 	array(
 		'permissions' => 'usage,contentadmin',
