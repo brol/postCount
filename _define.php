@@ -11,7 +11,7 @@
 # http://creativecommons.org/licenses/by-nc-sa/3.0/deed.fr_CA
 # -- END LICENSE BLOCK ------------------------------------
 #
-# 01-01-2014
+# 03-01-2014
 
 if (!defined('DC_RC_PATH')) {
   return null;
@@ -25,7 +25,7 @@ $this->registerModule(
 	/* Name */			"postCount",
 	/* Description*/	"Post read counter / Compteur de lecture de billet",
 	/* Author */		"Olivier Le Bris, Pierre Van Glabeke",
-	/* Version */		"1.7",
+	/* Version */		"1.7.2",
 	/* Properties */
 	array(
 		'permissions' => 'usage,contentadmin',

@@ -11,8 +11,9 @@
 # http://creativecommons.org/licenses/by-nc-sa/3.0/deed.fr_CA
 # -- END LICENSE BLOCK ------------------------------------
 #
-# 01-01-2014
+# 03-01-2014
 if (!defined('DC_RC_PATH')) {return;}
+
 /**
  * manage post read counter
  */
@@ -120,8 +121,13 @@ class postCount {
 			return -1;
 		else {
 			try {
+			if ($this->core->con->driver() == 'mysql' || $this->core->con->driver() == 'mysqli') {
+        $cast_type = 'UNSIGNED';
+      } else {
+        $cast_type='INTEGER';
+      }
 	            $req =
-				'SELECT CAST(M.meta_id AS UNSIGNED) '.
+				'SELECT CAST(M.meta_id AS '.$cast_type.') '.
 				'FROM '.$this->core->prefix.'meta M '.
 				"WHERE M.meta_type='count|".(string)$this->post_lang()."' ".
 				"AND M.post_id=".(integer) $id;

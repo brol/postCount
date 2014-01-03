@@ -11,7 +11,7 @@
 # http://creativecommons.org/licenses/by-nc-sa/3.0/deed.fr_CA
 # -- END LICENSE BLOCK ------------------------------------
 #
-# 01-01-2014
+# 02-01-2014
 
 /**
  * rights management
@@ -136,10 +136,10 @@ if (!empty($msg)) {
 	<div class="fieldset">
 		<h4><?php echo __('Themes integration'); ?></h4>
 		<p>
-			<?php echo __('Add this code in your _post.html theme file where to update post count:'); ?></p>
+			<?php echo __('Add this code in your post.html theme file where to update post count:'); ?></p>
 			<pre>{{tpl:postCountIncrement}}</pre>
 		<p>
-			<?php echo __('Add this code in your themes file (_post.html or _home.html) where to display post count:'); ?></p>
+			<?php echo __('Add this code in your themes file (post.html or home.html) where to display post count:'); ?></p>
 			<pre>{{tpl:postCountGet}}</pre>
 	</div>
 </div>

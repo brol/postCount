@@ -1,3 +1,9 @@
+1.7.2  (03-01-2014)
+* correction bug
+
+1.7.1 (02-01-2014)
+* Bug UNSIGNED (merci Dsls)
+
 1.7 (01-01-2014)
 * mise en compatibilité dc2.6
 * ajout code sécurité fichiers php

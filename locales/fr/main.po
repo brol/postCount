@@ -82,12 +82,12 @@ msgid "Use this plugin to update posts read counters or to display them anywhere
 msgstr "Utilisez ce plugin pour mettre à jour les compteurs de lectures de billets ou pour les afficher où vous le souhaitez sur votre blog."
 
 #:
-msgid "Add this code in your _post.html theme file where to update post count:"
-msgstr "Ajoutez ce code dans votre fichier _post.html de thème pour incrémeter le compteur de lecture de billet :"
+msgid "Add this code in your post.html theme file where to update post count:"
+msgstr "Ajoutez ce code dans votre fichier post.html de thème pour incrémeter le compteur de lecture de billet :"
 
 #:
-msgid "Add this code in your themes file (_post.html or _home.html) where to display post count:"
-msgstr "Ajoutez ce code dans vos fichiers de thèmes (_post.html ou _home.html) pour afficher le compteur de lecture de billet :"
+msgid "Add this code in your themes file (post.html or home.html) where to display post count:"
+msgstr "Ajoutez ce code dans vos fichiers de thèmes (post.html ou home.html) pour afficher le compteur de lecture de billet :"
 
 #:
 msgid "Lock counters"
@@ -108,7 +108,7 @@ msgstr "Réinitialiser les compteurs"
 
 #:
 msgid "Permanant reset post read counters (BEWARE: this cannot be undo!)."
-msgstr "Réinitialiser de manière permanente les compteurs de lecture de billet (ATTENTION : cette action ne peut pas être annulée !)"
+msgstr "Réinitialiser de manière permanente les compteurs de lecture de billet (ATTENTION : cette action ne peut pas être annulée !)."
 
 #:
 msgid "Reset"
