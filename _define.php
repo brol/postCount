@@ -23,9 +23,9 @@ if (!defined('DC_RC_PATH')) {
  */
 $this->registerModule(
 	/* Name */			"postCount",
-	/* Description*/	"Post read counter / Compteur de lecture de billet",
+	/* Description*/	"Post read counter",
 	/* Author */		"Olivier Le Bris, Pierre Van Glabeke",
-	/* Version */		"1.7.2",
+	/* Version */		"1.7.3",
 	/* Properties */
 	array(
 		'permissions' => 'usage,contentadmin',
