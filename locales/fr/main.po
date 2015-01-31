@@ -47,7 +47,7 @@ msgstr "Paramètres réinitialisés."
 
 #:
 msgid "postCount"
-msgstr "Compteur de lecture de billet"
+msgstr "postCount"
 
 #:
 msgid "postcount"
@@ -107,8 +107,12 @@ msgid "Reset counters"
 msgstr "Réinitialiser les compteurs"
 
 #:
-msgid "Permanant reset post read counters (BEWARE: this cannot be undo!)."
-msgstr "Réinitialiser de manière permanente les compteurs de lecture de billet (ATTENTION : cette action ne peut pas être annulée !)."
+msgid "Permanant reset post read counters."
+msgstr "Réinitialiser de manière permanente les compteurs de lecture de billet."
+
+#:
+msgid "BEWARE: this cannot be undo!"
+msgstr "ATTENTION : cette action ne peut pas être annulée !"
 
 #:
 msgid "Reset"

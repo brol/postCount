@@ -11,7 +11,7 @@
 # http://creativecommons.org/licenses/by-nc-sa/3.0/deed.fr_CA
 # -- END LICENSE BLOCK ------------------------------------
 #
-# 01-01-2014
+# 30-01-2015
 
 /**
 * rights management
@@ -21,7 +21,7 @@ if (!defined('DC_CONTEXT_ADMIN')) { return; }
 /**
 * admin menu integration
 */
-$_menu['Blog']->addItem(__('postCount'),
+$_menu['Blog']->addItem(__('Post read counter'),
 	'plugin.php?p=postCount',
 	'index.php?pf=postCount/icon.png',
 	preg_match('/plugin.php\?p='.'postCount'.'(&.*)?$/', $_SERVER['REQUEST_URI']),

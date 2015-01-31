@@ -11,7 +11,7 @@
 # http://creativecommons.org/licenses/by-nc-sa/3.0/deed.fr_CA
 # -- END LICENSE BLOCK ------------------------------------
 #
-# 03-01-2014
+# 31-01-2015
 
 if (!defined('DC_RC_PATH')) {
   return null;

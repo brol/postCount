@@ -11,7 +11,7 @@
 # http://creativecommons.org/licenses/by-nc-sa/3.0/deed.fr_CA
 # -- END LICENSE BLOCK ------------------------------------
 #
-# 02-01-2014
+# 31-01-2015
 
 /**
  * rights management
@@ -19,7 +19,7 @@
 if (!defined('DC_CONTEXT_ADMIN')) exit;
 dcPage::check('usage,admin');
 
-$page_title = __('postCount');
+$page_title = __('Post read counter');
 
 /* get plugin operation */
 $p_op = (!empty($_POST['op']))?(string)$_POST['op']:'none';
@@ -145,64 +145,65 @@ if (!empty($msg)) {
 </div>
 
 <div class='multi-part' id='tab_settings' title='<?php echo __('Settings') ?>'>
-	<div class="fieldset">
-		<h4><?php echo __('Settings'); ?></h4>
-			<form action="plugin.php" method="post" id="state">	
-				<p>
-					<?php echo form::checkbox('plugin_defaults', 1, (boolean) false) ?>
-					<label for="plugin_defaults" class="classic"><?php echo __('Reset to default settings') ?></label>
-				</p>
-				<p>
-					<?php echo form::checkbox('plugin_enabled', 1, (boolean) $core->blog->settings->postCount->enabled) ?>
-					<label for="plugin_enabled" class="classic"><?php echo __('Plugin activation') ?></label>
-				</p>
-				<p>
-					<?php echo form::checkbox('plugin_synchronize', 1, (boolean) $core->blog->settings->postCount->synchronize) ?>
-					<label for="plugin_synchronize" class="classic"><?php echo __('Synchronize blog') ?></label>
-				</p>
-				<p>
-					<?php echo form::checkbox('plugin_countlock', 1, (boolean) $core->blog->settings->postCount->countlock) ?>
-					<label for="plugin_countlock" class="classic"><?php echo __('Lock counters') ?></label>
-				</p>
-				<p>
-					<?php echo form::checkbox('plugin_local', 1, (boolean) $core->blog->settings->postCount->local) ?>
-					<label for="plugin_local" class="classic"><?php echo __('Count local counts') ?> *</label>
-				</p>
-				<p>
-					<label for="plugin_locals" class="classic"><?php echo __('Local IPs (comma separated)') ?></label>
-					<?php echo form::field('plugin_locals',50,255,html::escapeHTML($core->blog->settings->postCount->locals)) ?>
-				</p>
-				<p>
-					<input type="submit" value="<?php echo __('Save') ?>" />
-				</p>
-				<p>
-					<br />
-					* <?php echo __('Your IP:') ?> <?php echo $core->blog->postCount->getIP(); ?>
-				</p>
-				<p>
-				<?php
-					echo form::hidden(array('p'),'postCount');
+	<form action="plugin.php" method="post" id="state">
+    <div class="fieldset">
+      <h4><?php echo __('Settings'); ?></h4>
+			<p>
+				<?php echo form::checkbox('plugin_defaults', 1, (boolean) false) ?>
+				<label for="plugin_defaults" class="classic"><?php echo __('Reset to default settings') ?></label>
+			</p>
+			<p>
+				<?php echo form::checkbox('plugin_enabled', 1, (boolean) $core->blog->settings->postCount->enabled) ?>
+				<label for="plugin_enabled" class="classic"><?php echo __('Plugin activation') ?></label>
+			</p>
+			<p>
+				<?php echo form::checkbox('plugin_synchronize', 1, (boolean) $core->blog->settings->postCount->synchronize) ?>
+				<label for="plugin_synchronize" class="classic"><?php echo __('Synchronize blog') ?></label>
+			</p>
+			<p>
+				<?php echo form::checkbox('plugin_countlock', 1, (boolean) $core->blog->settings->postCount->countlock) ?>
+				<label for="plugin_countlock" class="classic"><?php echo __('Lock counters') ?></label>
+			</p>
+			<p>
+				<?php echo form::checkbox('plugin_local', 1, (boolean) $core->blog->settings->postCount->local) ?>
+				<label for="plugin_local" class="classic"><?php echo __('Count local counts') ?></label>
+			<p class="info">
+				<?php echo __('Your IP:') ?> <?php echo $core->blog->postCount->getIP(); ?>
+			</p>
+			</p>
+			<p>
+				<label for="plugin_locals" class="classic"><?php echo __('Local IPs (comma separated)') ?></label>
+				<?php echo form::field('plugin_locals',50,255,html::escapeHTML($core->blog->settings->postCount->locals)) ?>
+			</p>
+    </div>
+			<p>
+				<input type="submit" value="<?php echo __('Save') ?>" />
+			</p>
+			<p>
+        <?php
+				  echo form::hidden(array('p'),'postCount');
 					echo form::hidden(array('op'),'settings');
 					echo $core->formNonce();
-				?>
-		    </p>
-			</form>	
-	</div>
-	<div class="fieldset">
-		<h4><?php echo __('Reset counters'); ?></h4>
-			<form action="plugin.php" method="post" id="reset">
-				<p><?php echo __('Permanant reset post read counters (BEWARE: this cannot be undo!).') ?><br />
-				<?php echo __('This option remove all counters to reset them.') ?></p>
-        <p>
+        ?>
+		  </p>
+	</form>
+
+  <form action="plugin.php" method="post" id="reset">
+    <div class="fieldset">
+		  <h4><?php echo __('Reset counters'); ?></h4>
+			<p><?php echo __('Permanant reset post read counters.') ?></p>
+			<p class="warn"><?php echo __('BEWARE: this cannot be undo!') ?></p>
+			<p><?php echo __('This option remove all counters to reset them.') ?></p>
+    </div>
+      <p>
 				<input type="submit" value="<?php echo __('Reset') ?>" /> 
 				<?php
 					echo form::hidden(array('p'),'postCount');
 					echo form::hidden(array('op'),'reset');
 					echo $core->formNonce();
 				?>
-        </p>
-			</form>
-	</div>
+      </p>
+	</form>
 </div>
 
 <?php dcPage::helpBlock('postCount'); ?>
