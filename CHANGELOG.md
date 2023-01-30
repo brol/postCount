@@ -1,3 +1,6 @@
+1.8-dev (30/01/2023)
+* dc2.24
+
 1.7.3 (23-01-2015)
 * modification locales
 

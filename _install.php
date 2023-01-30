@@ -1,28 +1,23 @@
 <?php
-# -- BEGIN LICENSE BLOCK ----------------------------------
-# This file is part of postCount, a plugin for Dotclear 2.
-#
-# Copyright (c) 2007-2010 Olivier Le Bris
-# http://phoenix.cybride.net/
-# Contributor: Pierre Van Glabeke
-#
-# Licensed under the Creative Commons by-nc-sa license.
-# See LICENSE file or
-# http://creativecommons.org/licenses/by-nc-sa/3.0/deed.fr_CA
-# -- END LICENSE BLOCK ------------------------------------
-#
-# 01-01-2014
-
 /**
- * rights management
+ * @brief postCount, a plugin for Dotclear 2
+ *
+ * @package Dotclear
+ * @subpackage Plugin
+ *
+ * @author Olivier Le Bris (http://phoenix.cybride.net/)
+ *
+ * @Contributors Pierre Van Glabeke
+ * @copyright Creative Commons by-nc-sa license https://creativecommons.org/licenses/by-nc-sa/3.0/deed.fr_CA
  */
+
 if (!defined('DC_CONTEXT_ADMIN')) exit;
 
 /**
  * get previous and actual module version
  */
-$v_new = $core->plugins->moduleInfo('postCount', 'version');
-$v_old = $core->getVersion('postCount');
+$v_new = dcCore::app()->plugins->moduleInfo('postCount', 'version');
+$v_old = dcCore::app()->getVersion('postCount');
 
 try {
 	if (version_compare($v_old, $v_new, '>=')) {
@@ -37,8 +32,8 @@ try {
 		 */
 	
 		// setup default settings and new plugin version
-		$core->blog->postCount->initSettings();
-		$core->setVersion('postCount', $v_new);
+		dcCore::app()->blog->postCount->initSettings();
+		dcCore::app()->setVersion('postCount', $v_new);
 	
 		if ($v_old != '') {
 		
@@ -52,12 +47,12 @@ try {
 			 */
 			if (version_compare($v_old, '1.6', '<')) {
 				try {
-					$cur = $this->core->con->openCursor($this->core->prefix.'meta');
+					$cur = dcCore::app()->con->openCursor(dcCore::app()->prefix.'meta');
 					$cur->meta_type = 'count|'.(string) $this->blog->settings->postCount->lang;
 					$cur->update("WHERE meta_type='count'");
-					$this->core->blog->triggerBlog();
+					dcCore::app()->blog->triggerBlog();
 				}
-				catch (Exception $ex) { $this->core->error->add($ex->getMessage()); }
+				catch (Exception $ex) { dcCore::app()->error->add($ex->getMessage()); }
 			}		
 		} else {
 			/**
@@ -69,7 +64,7 @@ try {
 		return true;		
 	}
 } catch (Exception $e) {
-	$core->error->add(__('Unable to install or update the plugin postCount'));
-	$core->error->add($e->getMessage());
+	dcCore::app()->error->add(__('Unable to install or update the plugin postCount'));
+	dcCore::app()->error->add($e->getMessage());
 	return false;
 }

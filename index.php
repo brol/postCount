@@ -1,22 +1,17 @@
 <?php
-# -- BEGIN LICENSE BLOCK ----------------------------------
-# This file is part of postCount, a plugin for Dotclear 2.
-#
-# Copyright (c) 2007-2010 Olivier Le Bris
-# http://phoenix.cybride.net/
-# Contributor: Pierre Van Glabeke
-#
-# Licensed under the Creative Commons by-nc-sa license.
-# See LICENSE file or
-# http://creativecommons.org/licenses/by-nc-sa/3.0/deed.fr_CA
-# -- END LICENSE BLOCK ------------------------------------
-#
-# 31-01-2015
-
 /**
- * rights management
+ * @brief postCount, a plugin for Dotclear 2
+ *
+ * @package Dotclear
+ * @subpackage Plugin
+ *
+ * @author Olivier Le Bris (http://phoenix.cybride.net/)
+ *
+ * @Contributors Pierre Van Glabeke
+ * @copyright Creative Commons by-nc-sa license https://creativecommons.org/licenses/by-nc-sa/3.0/deed.fr_CA
  */
 if (!defined('DC_CONTEXT_ADMIN')) exit;
+
 dcPage::check('usage,admin');
 
 $page_title = __('Post read counter');
@@ -56,40 +51,40 @@ switch ($p_op) {
 		try {
 			$m=1;
 			$plugin_defaults = (empty($_POST['plugin_defaults']))?false:true;
-			$core->blog->postCount->enabled = (boolean) (empty($_POST['plugin_enabled']))?false:true;
-			$core->blog->postCount->synchronize = (boolean) (empty($_POST['plugin_synchronize']))?false:true;
-			$core->blog->postCount->countlock = (boolean) (empty($_POST['plugin_countlock']))?false:true;
-			$core->blog->postCount->local = (boolean) (empty($_POST['plugin_local']))?false:true;
+			dcCore::app()->blog->postCount->enabled = (boolean) (empty($_POST['plugin_enabled']))?false:true;
+			dcCore::app()->blog->postCount->synchronize = (boolean) (empty($_POST['plugin_synchronize']))?false:true;
+			dcCore::app()->blog->postCount->countlock = (boolean) (empty($_POST['plugin_countlock']))?false:true;
+			dcCore::app()->blog->postCount->local = (boolean) (empty($_POST['plugin_local']))?false:true;
 			if (empty($_POST['plugin_locals'])) {
-				$core->blog->postCount->locals = explode(',','127.0.0.1');
+				dcCore::app()->blog->postCount->locals = explode(',','127.0.0.1');
 			}
 			else {
 				// sanitize input text + remove white spaces
 				$IPs = preg_replace('/\s\s+/', '', html::escapeHTML( (string) $_POST['plugin_locals'] ) );			
-				$core->blog->postCount->locals = explode(',',$IPs);
+				dcCore::app()->blog->postCount->locals = explode(',',$IPs);
 			}
 			if ($plugin_defaults) {
 				$m=2;
-				$core->blog->postCount->defaultSettings();
+				dcCore::app()->blog->postCount->defaultSettings();
 			}
-			$core->blog->postCount->saveSettings();			
+			dcCore::app()->blog->postCount->saveSettings();			
 			if (empty($msg)) {
 				http::redirect('plugin.php?p=postCount&m='.$m);
 			}
 		}
-		catch (Exception $ex) { $this->core->error->add($ex->getMessage()); }
+		catch (Exception $ex) { dcCore::app()->error->add($ex->getMessage()); }
 	}
 	break;	
 	
 	case 'reset': {
 		try {
 			$m=3;
-			$core->blog->postCount->reset();			
+			dcCore::app()->blog->postCount->reset();			
 			if (empty($msg)) {
 				http::redirect('plugin.php?p=postCount&m='.$m);
 			}
 		}
-		catch (Exception $ex) { $this->core->error->add($ex->getMessage()); }
+		catch (Exception $ex) { dcCore::app()->error->add($ex->getMessage()); }
 	}
 	break;	
 	
@@ -105,12 +100,12 @@ switch ($p_op) {
 <link rel="stylesheet" type="text/css" href="index.php?pf=postCount/style.css" />
   <?php echo
   dcPage::jsDatePicker().
-  dcPage::jsToolBar().
+  //dcPage::jsToolBar().
   dcPage::jsModal().
   /*dcPage::jsLoad('js/_post.js').*/
   /*dcPage::jsConfirmClose('entry-form','comment-form').*/
   # --BEHAVIOR-- adminPageHeaders
-  $core->callBehavior('adminPageHeaders');/*.*/
+  dcCore::app()->callBehavior('adminPageHeaders');/*.*/
   /*dcPage::jsPageTabs($default_tab).*/
   /*$next_headlink."\n".$prev_headlink;*/
   ?>
@@ -124,7 +119,7 @@ switch ($p_op) {
 
 	echo dcPage::breadcrumb(
 		array(
-			html::escapeHTML($core->blog->name) => '',
+			html::escapeHTML(dcCore::app()->blog->name) => '',
 			'<span class="page-title">'.$page_title.'</span>' => ''
 		));
 if (!empty($msg)) {
@@ -153,27 +148,27 @@ if (!empty($msg)) {
 				<label for="plugin_defaults" class="classic"><?php echo __('Reset to default settings') ?></label>
 			</p>
 			<p>
-				<?php echo form::checkbox('plugin_enabled', 1, (boolean) $core->blog->settings->postCount->enabled) ?>
+				<?php echo form::checkbox('plugin_enabled', 1, (boolean) dcCore::app()->blog->settings->postCount->enabled) ?>
 				<label for="plugin_enabled" class="classic"><?php echo __('Plugin activation') ?></label>
 			</p>
 			<p>
-				<?php echo form::checkbox('plugin_synchronize', 1, (boolean) $core->blog->settings->postCount->synchronize) ?>
+				<?php echo form::checkbox('plugin_synchronize', 1, (boolean) dcCore::app()->blog->settings->postCount->synchronize) ?>
 				<label for="plugin_synchronize" class="classic"><?php echo __('Synchronize blog') ?></label>
 			</p>
 			<p>
-				<?php echo form::checkbox('plugin_countlock', 1, (boolean) $core->blog->settings->postCount->countlock) ?>
+				<?php echo form::checkbox('plugin_countlock', 1, (boolean) dcCore::app()->blog->settings->postCount->countlock) ?>
 				<label for="plugin_countlock" class="classic"><?php echo __('Lock counters') ?></label>
 			</p>
 			<p>
-				<?php echo form::checkbox('plugin_local', 1, (boolean) $core->blog->settings->postCount->local) ?>
+				<?php echo form::checkbox('plugin_local', 1, (boolean) dcCore::app()->blog->settings->postCount->local) ?>
 				<label for="plugin_local" class="classic"><?php echo __('Count local counts') ?></label>
 			<p class="info">
-				<?php echo __('Your IP:') ?> <?php echo $core->blog->postCount->getIP(); ?>
+				<?php echo __('Your IP:') ?> <?php echo dcCore::app()->blog->postCount->getIP(); ?>
 			</p>
 			</p>
 			<p>
 				<label for="plugin_locals" class="classic"><?php echo __('Local IPs (comma separated)') ?></label>
-				<?php echo form::field('plugin_locals',50,255,html::escapeHTML($core->blog->settings->postCount->locals)) ?>
+				<?php echo form::field('plugin_locals',50,255,html::escapeHTML(dcCore::app()->blog->settings->postCount->locals)) ?>
 			</p>
     </div>
 			<p>
@@ -183,7 +178,7 @@ if (!empty($msg)) {
         <?php
 				  echo form::hidden(array('p'),'postCount');
 					echo form::hidden(array('op'),'settings');
-					echo $core->formNonce();
+					echo dcCore::app()->formNonce();
         ?>
 		  </p>
 	</form>
@@ -200,7 +195,7 @@ if (!empty($msg)) {
 				<?php
 					echo form::hidden(array('p'),'postCount');
 					echo form::hidden(array('op'),'reset');
-					echo $core->formNonce();
+					echo dcCore::app()->formNonce();
 				?>
       </p>
 	</form>

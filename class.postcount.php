@@ -1,17 +1,15 @@
 <?php
-# -- BEGIN LICENSE BLOCK ----------------------------------
-# This file is part of postCount, a plugin for Dotclear 2.
-#
-# Copyright (c) 2007-2010 Olivier Le Bris
-# http://phoenix.cybride.net/
-# Contributor: Pierre Van Glabeke
-#
-# Licensed under the Creative Commons by-nc-sa license.
-# See LICENSE file or
-# http://creativecommons.org/licenses/by-nc-sa/3.0/deed.fr_CA
-# -- END LICENSE BLOCK ------------------------------------
-#
-# 03-01-2014
+/**
+ * @brief postCount, a plugin for Dotclear 2
+ *
+ * @package Dotclear
+ * @subpackage Plugin
+ *
+ * @author Olivier Le Bris (http://phoenix.cybride.net/)
+ *
+ * @Contributors Pierre Van Glabeke
+ * @copyright Creative Commons by-nc-sa license https://creativecommons.org/licenses/by-nc-sa/3.0/deed.fr_CA
+ */
 if (!defined('DC_RC_PATH')) {return;}
 
 /**
@@ -22,7 +20,6 @@ class postCount {
 	/**
 	 * class variables
 	 */
-	protected $core;
 	protected $installed=true;
 	public $enabled;
 	public $synchronize;
@@ -34,9 +31,8 @@ class postCount {
 	/**
 	 * class constructor
 	 */
-	public function __construct($core) {
-		$this->core	=& $core;
-		$this->core->blog->settings->addNamespace('postCount');		
+	public function __construct() {
+		dcCore::app()->blog->settings->addNamespace('postCount');		
 		$this->readSettings();
 	}
 
@@ -45,12 +41,12 @@ class postCount {
 	 */
 	protected function readSettings() {
 		if ($this->installed) {
-			$this->enabled = (boolean) $this->core->blog->settings->postCount->enabled;
-			$this->synchronize = (boolean) $this->core->blog->settings->postCount->synchronize;
-			$this->lang = (string) $this->core->blog->settings->postCount->lang;
-			$this->countlock = (boolean) $this->core->blog->settings->postCount->countlock;
-			$this->local = (boolean) $this->core->blog->settings->postCount->local;
-			$this->locals = explode(',',$this->core->blog->settings->postCount->locals);
+			$this->enabled = (boolean) dcCore::app()->blog->settings->postCount->enabled;
+			$this->synchronize = (boolean) dcCore::app()->blog->settings->postCount->synchronize;
+			$this->lang = (string) dcCore::app()->blog->settings->postCount->lang;
+			$this->countlock = (boolean) dcCore::app()->blog->settings->postCount->countlock;
+			$this->local = (boolean) dcCore::app()->blog->settings->postCount->local;
+			$this->locals = explode(',',dcCore::app()->blog->settings->postCount->locals);
 		}
 	}
 	
@@ -68,7 +64,7 @@ class postCount {
 	public function defaultSettings() {
 		$this->enabled = (boolean) false;
 		$this->synchronize = (boolean) true;
-		$this->lang = (string) $this->core->blog->settings->lang;
+		$this->lang = (string) dcCore::app()->blog->settings->postCount->lang;
 		$this->countlock = (boolean) false;
 		$this->local = (boolean) false;
 		$this->locals = explode(',','127.0.0.1');
@@ -78,23 +74,22 @@ class postCount {
 	 * save all settings
 	 */
 	public function saveSettings() {
-		$this->core->blog->settings->postCount->put('enabled',$this->enabled,'boolean',__('Enable plugin'));
-		$this->core->blog->settings->postCount->put('synchronize',$this->synchronize,'boolean',__('Synchronize blog'));
-		$this->core->blog->settings->postCount->put('lang',$this->lang,'string',__('Blog language'));
-		$this->core->blog->settings->postCount->put('countlock',$this->countlock,'boolean',__('Lock counters'));
-		$this->core->blog->settings->postCount->put('local',$this->local,'boolean',__('Count local counts'));
-		$this->core->blog->settings->postCount->put('locals',implode(',',$this->locals),'string',__('Local IPs'));
+		dcCore::app()->blog->settings->postCount->put('enabled',$this->enabled,'boolean',__('Enable plugin'));
+		dcCore::app()->blog->settings->postCount->put('synchronize',$this->synchronize,'boolean',__('Synchronize blog'));
+		dcCore::app()->blog->settings->postCount->put('lang',$this->lang,'string',__('Blog language'));
+		dcCore::app()->blog->settings->postCount->put('countlock',$this->countlock,'boolean',__('Lock counters'));
+		dcCore::app()->blog->settings->postCount->put('local',$this->local,'boolean',__('Count local counts'));
+		dcCore::app()->blog->settings->postCount->put('locals',implode(',',$this->locals),'string',__('Local IPs'));
 		if ($this->synchronize)
-			$this->core->blog->triggerBlog();
+			dcCore::app()->blog->triggerBlog();
 	}
 
 	/**
 	 * get current post id
 	 */
     protected function post_id() {
-        global $_ctx;
-		if (isset($_ctx) && is_object($_ctx->posts) && $_ctx->posts->exists('post_id'))
-			return (integer)$_ctx->posts->post_id;
+		if (isset(dcCore::app()->ctx) && is_object(dcCore::app()->ctx->posts) && dcCore::app()->ctx->posts->exists('post_id'))
+			return (integer)dcCore::app()->ctx->posts->post_id;
 		else
 			return -1;
     }
@@ -103,9 +98,8 @@ class postCount {
 	 * get current post lang
 	 */
     protected function post_lang() {
-        global $_ctx;
-		if (isset($_ctx) && is_object($_ctx->posts) && $_ctx->posts->exists('post_lang'))
-			return (string) $_ctx->posts->post_lang;
+		if (isset(dcCore::app()->ctx) && is_object(dcCore::app()->ctx->posts) && dcCore::app()->ctx->posts->exists('post_lang'))
+			return (string) dcCore::app()->ctx->posts->post_lang;
 		else {
 			$this->readSettings();
 			return (string) $this->lang;
@@ -121,23 +115,23 @@ class postCount {
 			return -1;
 		else {
 			try {
-			if ($this->core->con->driver() == 'mysql' || $this->core->con->driver() == 'mysqli') {
+			if (dcCore::app()->con->driver() == 'mysql' || dcCore::app()->con->driver() == 'mysqli') {
         $cast_type = 'UNSIGNED';
       } else {
         $cast_type='INTEGER';
       }
 	            $req =
 				'SELECT CAST(M.meta_id AS '.$cast_type.') '.
-				'FROM '.$this->core->prefix.'meta M '.
+				'FROM '.dcCore::app()->prefix.'meta M '.
 				"WHERE M.meta_type='count|".(string)$this->post_lang()."' ".
 				"AND M.post_id=".(integer) $id;
-	            $rs = $this->core->con->select($req);
+	            $rs = dcCore::app()->con->select($req);
 	            if ($rs->isEmpty())
 					return (integer)0;
 				else
 					return ((integer)$rs->f(0) < 0) ? (integer)0 : (integer)$rs->f(0);
 			}
-		    catch (Exception $ex) { $this->core->error->add($ex->getMessage()); }
+		    catch (Exception $ex) { dcCore::app()->error->add($ex->getMessage()); }
 		}
 	}
 
@@ -177,7 +171,7 @@ class postCount {
 			}
 
 			try {
-				$cur = $this->core->con->openCursor($this->core->prefix.'meta');
+				$cur = dcCore::app()->con->openCursor(dcCore::app()->prefix.'meta');
 				$count = (integer) $this->count();
 				if ($count <= 0) {
 					$cur->meta_type = 'count|'.(string)$this->post_lang();
@@ -185,7 +179,7 @@ class postCount {
 					$cur->meta_id = (integer) 1;
 					$cur->insert();
 					if ($this->synchronize) {
-						$this->core->blog->triggerBlog();
+						dcCore::app()->blog->triggerBlog();
 					}
 				}
 				else {
@@ -195,11 +189,11 @@ class postCount {
 						" AND meta_type='count|".(string)$this->post_lang()."' "
 					);
 					if ($this->synchronize) {
-						$this->core->blog->triggerBlog();
+						dcCore::app()->blog->triggerBlog();
 					}
 				}
 			}
-		    catch (Exception $ex) { $this->core->error->add($ex->getMessage()); }
+		    catch (Exception $ex) { dcCore::app()->error->add($ex->getMessage()); }
 		}
 	}
 
@@ -210,32 +204,30 @@ class postCount {
 		try {
 			$req =
 			'DELETE '.
-			'FROM '.$this->core->prefix.'meta '.
+			'FROM '.dcCore::app()->prefix.'meta '.
 			"WHERE meta_type LIKE 'count|%'";
-			$rs = $this->core->con->select($req);
+			$rs = dcCore::app()->con->select($req);
 		}
-		catch (Exception $ex) { $this->core->error->add($ex->getMessage()); }
+		catch (Exception $ex) { dcCore::app()->error->add($ex->getMessage()); }
 	}
 
 	/**
 	 * increment post read counter
 	 */
     public static function postCountIncrement() {
-		global $core;
-		if (!isset($core->blog->postCount) || !$core->blog->settings->postCount->enabled)
+		if (!isset(dcCore::app()->blog->postCount) || !dcCore::app()->blog->settings->postCount->enabled)
 			return;
-		$core->blog->postCount->increment();
+		dcCore::app()->blog->postCount->increment();
 	}
 
 	/**
 	 * get post counter
 	 */
     public static function postCountGet() {
-		global $core;
-		if (!isset($core->blog->postCount) || !$core->blog->settings->postCount->enabled)
+		if (!isset(dcCore::app()->blog->postCount) || !dcCore::app()->blog->settings->postCount->enabled)
 			return;
 
-		$count = (integer) $core->blog->postCount->count();
+		$count = (integer) dcCore::app()->blog->postCount->count();
 		if ($count <= 0)
 			$msg = __('Unread');
 		else if ($count == 1)
