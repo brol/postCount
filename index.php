@@ -97,7 +97,6 @@ switch ($p_op) {
 <html>
 <head>
 <title><?php echo $page_title; ?></title>
-<link rel="stylesheet" type="text/css" href="index.php?pf=postCount/style.css" />
   <?php echo
   dcPage::jsDatePicker().
   //dcPage::jsToolBar().
@@ -131,11 +130,11 @@ if (!empty($msg)) {
 	<div class="fieldset">
 		<h4><?php echo __('Themes integration'); ?></h4>
 		<p>
-			<?php echo __('Add this code in your post.html theme file where to update post count:'); ?></p>
-			<pre>{{tpl:postCountIncrement}}</pre>
+			<?php echo __('Add this code in your post.html theme file where to update post count:'); ?>
+			<code>{{tpl:postCountIncrement}}</code></p>
 		<p>
-			<?php echo __('Add this code in your themes file (post.html or home.html) where to display post count:'); ?></p>
-			<pre>{{tpl:postCountGet}}</pre>
+			<?php echo __('Add this code in your themes file (post.html or home.html) where to display post count:'); ?>
+			<code>{{tpl:postCountGet}}</code></p>
 	</div>
 </div>
 
