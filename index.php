@@ -181,8 +181,9 @@ if (!empty($msg)) {
         ?>
 		  </p>
 	</form>
-
-  <form action="plugin.php" method="post" id="reset">
+</div>
+<div class='multi-part' id='tab_reset' title='<?php echo __('Reset') ?>'>
+	  <form action="plugin.php" method="post" id="reset">
     <div class="fieldset">
 		  <h4><?php echo __('Reset counters'); ?></h4>
 			<p><?php echo __('Permanant reset post read counters.') ?></p>

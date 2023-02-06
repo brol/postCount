@@ -1,127 +1,137 @@
+# Language: Français
+# Module: postCount - 1.8-dev
+# Date: 2023-02-06 14:53:19
+# Author: Pierre Van Glabeke
+# Translated with translater 2022.12.26
+
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Project-Id-Version: postCount 1.8-dev\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
-"Last-Translator: brol <contact@brol.info>\n"
+"PO-Revision-Date: 2023-02-06T14:53:19+00:00\n"
+"Last-Translator: Pierre Van Glabeke\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.7\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-# commons
-# ----------
-
-#:
-msgid "Integration"
-msgstr "Intégration"
-
-#:
-msgid "Themes integration"
-msgstr "Intégration dans les thèmes"
-
-#:
-msgid "Reset to default settings"
-msgstr "Réinitialiser aux paramètres par défaut"
-
-#:
-msgid "Synchronize blog"
-msgstr "Synchroniser le blog"
-
-#:
-msgid "Settings"
-msgstr "Paramètres"
-
-#:
-msgid "Settings saved."
-msgstr "Paramètres enregistrés."
-
-#:
-msgid "Settings reseted."
-msgstr "Paramètres réinitialisés."
-
-
-# specifics
-# ----------
-
-#:
-msgid "postCount"
-msgstr "postCount"
-
-#:
-msgid "postcount"
-msgstr "postcount"
-
-#:
+#: _admin.php:17
+#: index.php:17
 msgid "Post read counter"
 msgstr "Compteur de lecture de billet"
 
-#:
-msgid "postcount settings"
-msgstr "paramètres de postcount"
+#: _admin.php:32
+msgid "postCount"
+msgstr "postCount"
 
-#:
-msgid "Unable to install or update the plugin postcount"
-msgstr "Impossible d'installer ou de mettre à jour postcount"
+#: _install.php:67
+msgid "Unable to install or update the plugin postCount"
+msgstr "Impossible d'installer ou de mettre à jour le postCount"
 
-#:
-msgid "Unread"
-msgstr "Aucune lecture"
+#: class.postcount.php:77
+msgid "Enable plugin"
+msgstr "Activer le plugin"
 
-#:
-msgid "One read"
-msgstr "Une lecture"
+#: class.postcount.php:78
+#: index.php:155
+msgid "Synchronize blog"
+msgstr "Synchroniser le blog"
 
-#:
-msgid "#c reads"
-msgstr "#c lectures"
+#: class.postcount.php:79
+msgid "Blog language"
+msgstr "Langue du blog"
 
-#:
-msgid "Use this plugin to update posts read counters or to display them anywhere on your blog."
-msgstr "Utilisez ce plugin pour mettre à jour les compteurs de lectures de billets ou pour les afficher où vous le souhaitez sur votre blog."
-
-#:
-msgid "Add this code in your post.html theme file where to update post count:"
-msgstr "Ajoutez ce code dans votre fichier post.html de thème pour incrémeter le compteur de lecture de billet :"
-
-#:
-msgid "Add this code in your themes file (post.html or home.html) where to display post count:"
-msgstr "Ajoutez ce code dans vos fichiers de thèmes (post.html ou home.html) pour afficher le compteur de lecture de billet :"
-
-#:
+#: class.postcount.php:80
+#: index.php:159
 msgid "Lock counters"
 msgstr "Verrouiller les compteurs"
 
+#: class.postcount.php:81
+#: index.php:163
 msgid "Count local counts"
 msgstr "Prendre en compte les IP locales"
 
-msgid "Local IPs (comma separated)"
-msgstr "IP locale (utiliser la virgule comme séparateur)"
+#: class.postcount.php:82
+msgid "Local IPs"
+msgstr "IP locales"
 
-msgid "Your IP:"
-msgstr "Votre adresse IP :"
+#: class.postcount.php:232
+msgid "Unread"
+msgstr "Aucune lecture"
 
-#:
-msgid "Reset counters"
-msgstr "Réinitialiser les compteurs"
+#: class.postcount.php:234
+msgid "One read"
+msgstr "Une lecture"
 
-#:
-msgid "Permanant reset post read counters."
-msgstr "Réinitialiser de manière permanente les compteurs de lecture de billet."
+#: class.postcount.php:236
+msgid "#c reads"
+msgstr "#c lectures"
 
-#:
-msgid "BEWARE: this cannot be undo!"
-msgstr "ATTENTION : cette action ne peut pas être annulée !"
+#: index.php:30
+msgid "Settings saved."
+msgstr "Paramètres enregistrés."
 
-#:
-msgid "Reset"
-msgstr "Réinitialiser"
+#: index.php:34
+msgid "Settings reseted."
+msgstr "Paramètres réinitialisés."
 
-#:
+#: index.php:38
 msgid "Counters reseted."
 msgstr "Compteurs réinitialisés."
 
-#:
+#: index.php:129
+msgid "Integration"
+msgstr "Intégration"
+
+#: index.php:131
+msgid "Themes integration"
+msgstr "Intégration dans les thèmes"
+
+#: index.php:133
+msgid "Add this code in your post.html theme file where to update post count:"
+msgstr "Ajoutez ce code dans votre fichier post.html de thème pour incrémeter le compteur de lecture de billet :"
+
+#: index.php:136
+msgid "Add this code in your themes file (post.html or home.html) where to display post count:"
+msgstr "Ajoutez ce code dans vos fichiers de thèmes (post.html ou home.html) pour afficher le compteur de lecture de billet :"
+
+#: index.php:141
+msgid "Settings"
+msgstr "Paramètres"
+
+#: index.php:147
+msgid "Reset to default settings"
+msgstr "Réinitialiser aux paramètres par défaut"
+
+#: index.php:165
+msgid "Your IP:"
+msgstr "Votre adresse IP :"
+
+#: index.php:169
+msgid "Local IPs (comma separated)"
+msgstr "IP locale (utiliser la virgule comme séparateur)"
+
+#: index.php:185
+msgid "Reset"
+msgstr "Réinitialisation"
+
+#: index.php:188
+msgid "Reset counters"
+msgstr "Réinitialiser les compteurs"
+
+#: index.php:189
+msgid "Permanant reset post read counters."
+msgstr "Réinitialiser de manière permanente les compteurs de lecture de billet."
+
+#: index.php:190
+msgid "BEWARE: this cannot be undo!"
+msgstr "ATTENTION : cette action ne peut pas être annulée !"
+
+#: index.php:191
 msgid "This option remove all counters to reset them."
 msgstr "Cette option supprime tous les compteurs pour les réinitialiser."
+
+msgid "Use this plugin to update posts read counters or to display them anywhere on your blog."
+msgstr "Utilisez ce plugin pour mettre à jour les compteurs de lectures de billets ou pour les afficher où vous le souhaitez sur votre blog."
+
